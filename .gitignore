@@ -1,0 +1,13 @@
+*.lnk
+*.mp4
+*.ini
+desktop.ini
+document/
+emitra/
+ram project/
+*.jpeg
+*.jpg
+!images/
+!images/**
+!landing/
+!landing/**
