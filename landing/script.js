@@ -72,10 +72,11 @@ function handleTelegramClick(e) {
     } catch (_) {}
   }
 
-  // Meta Pixel Conversion Tracking for Telegram CTA
+  // Meta Pixel Conversion Tracking for Telegram CTA (Subscribe & Lead)
   try {
-    if (typeof fbq === "function") {
-      fbq("track", "Lead", {
+    if (typeof window !== "undefined" && window.fbq) {
+      window.fbq("track", "Subscribe");
+      window.fbq("track", "Lead", {
         content_name: "Join Telegram CTA",
         content_category: "Trading Community"
       });
