@@ -1,39 +1,130 @@
 // ===================================================================
-// DUBAI BAZIGAR - Interactive High-Converting Landing Page Script
+// GUJARATI TRADER (SEBI REGISTERED) - Ultra-Fast Mobile Script
+// Optimized for Instant Click Open & 0-Second Delay on Slow Networks
 // ===================================================================
 
-// 🔗 TARGET LINK: Click karne par yeh link open hoga
-const TARGET_LINK = "https://t.me/+StqiZxiJc1EwNzQ1";
+const TG_INVITE_CODE = "StqiZxiJc1EwNzQ1";
+const TG_WEB_URL = `https://t.me/+${TG_INVITE_CODE}`;
+const TG_APP_URL = `tg://join?invite=${TG_INVITE_CODE}`;
 
-document.addEventListener("DOMContentLoaded", () => {
-  initTelegramLinks();
+// Initialize when DOM is ready, or immediately if already loaded
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", initApp);
+} else {
+  initApp();
+}
+
+function initApp() {
+  initTelegramInstantLinks();
   initFaqAccordion();
   initAudioSimulator();
   initCounters();
   initRippleEffect();
-});
+  initServiceWorker();
+}
 
 /**
- * 1. Sabhi Buttons aur CTA par click hone par Link Open karna
+ * 1. Sabhi Buttons aur CTA par click hone par INSTANT Telegram App Open karna
+ * Slow 2G/3G network par bhi 0 second delay me khulta hai.
  */
-function initTelegramLinks() {
+function initTelegramInstantLinks() {
   const telegramButtons = document.querySelectorAll(".track-tg-btn");
 
   telegramButtons.forEach((btn) => {
-    // Ensure href is set properly
-    btn.setAttribute("href", TARGET_LINK);
-    btn.setAttribute("target", "_blank");
+    // Standard href rakha gaya hai taaki SEO aur fallback 100% reliable rahe
+    btn.setAttribute("href", TG_WEB_URL);
     btn.setAttribute("rel", "noopener noreferrer");
 
-    btn.addEventListener("click", (e) => {
-      // Optional analytics / tracking event could go here
-      console.log("🔗 User clicked CTA -> Opening target link:", TARGET_LINK);
-      // Small tactile vibration on mobile devices that support it
-      if ("vibrate" in navigator) {
-        navigator.vibrate(30);
-      }
-    });
+    // Passive touch preconnect for ultra-fast DNS resolution
+    btn.addEventListener("touchstart", prewarmConnection, { passive: true });
+    btn.addEventListener("mouseenter", prewarmConnection, { passive: true });
+
+    // Click handler with instant OS app launch
+    btn.addEventListener("click", handleTelegramClick);
   });
+}
+
+let hasPrewarmed = false;
+function prewarmConnection() {
+  if (hasPrewarmed) return;
+  hasPrewarmed = true;
+
+  const link = document.createElement("link");
+  link.rel = "preconnect";
+  link.href = "https://t.me";
+  document.head.appendChild(link);
+}
+
+let lastClickTime = 0;
+function handleTelegramClick(e) {
+  // Prevent double click within 800ms
+  const now = Date.now();
+  if (now - lastClickTime < 800) {
+    if (e) e.preventDefault();
+    return;
+  }
+  lastClickTime = now;
+
+  // Haptic feedback for tactile feel on mobile
+  if (typeof navigator !== "undefined" && "vibrate" in navigator) {
+    try {
+      navigator.vibrate([25, 40, 25]);
+    } catch (_) {}
+  }
+
+  // Meta Pixel Conversion Tracking for Telegram CTA
+  try {
+    if (typeof fbq === "function") {
+      fbq("track", "Lead", {
+        content_name: "Join Telegram CTA",
+        content_category: "Trading Community"
+      });
+    }
+  } catch (_) {}
+
+  const isAndroid = /Android/i.test(navigator.userAgent);
+  const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+  const isMobile = isAndroid || isIOS;
+
+  if (isMobile) {
+    if (e) e.preventDefault();
+
+    // Show brief instant visual feedback on button
+    const btn = e.currentTarget;
+    if (btn) {
+      btn.classList.add("btn-active-opening");
+      setTimeout(() => btn.classList.remove("btn-active-opening"), 1500);
+    }
+
+    let appLaunched = false;
+    const startTime = Date.now();
+
+    // Agar Telegram app open ho gaya to window blur/hidden ho jayegi
+    const handleVisibilityChange = () => {
+      if (document.hidden || document.webkitHidden) {
+        appLaunched = true;
+      }
+    };
+
+    document.addEventListener("visibilitychange", handleVisibilityChange, { once: true });
+    window.addEventListener("pagehide", () => { appLaunched = true; }, { once: true });
+    window.addEventListener("blur", () => { appLaunched = true; }, { once: true });
+
+    // Fallback: Agar Telegram app installed nahi hai to 650ms baad web browser me open hoga
+    setTimeout(() => {
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+      if (!appLaunched && Date.now() - startTime < 1600) {
+        window.location.href = TG_WEB_URL;
+      }
+    }, 650);
+
+    // Instant OS-level deep-link (no network wait required)
+    window.location.href = TG_APP_URL;
+  } else {
+    // Desktop: Web link in new tab
+    if (e) e.preventDefault();
+    window.open(TG_WEB_URL, "_blank", "noopener,noreferrer");
+  }
 }
 
 /**
@@ -44,6 +135,7 @@ function initFaqAccordion() {
 
   faqItems.forEach((item) => {
     const questionBtn = item.querySelector(".faq-question");
+    if (!questionBtn) return;
 
     questionBtn.addEventListener("click", () => {
       const isActive = item.classList.contains("active");
@@ -52,7 +144,8 @@ function initFaqAccordion() {
       faqItems.forEach((other) => {
         if (other !== item) {
           other.classList.remove("active");
-          other.querySelector(".faq-question").setAttribute("aria-expanded", "false");
+          const otherBtn = other.querySelector(".faq-question");
+          if (otherBtn) otherBtn.setAttribute("aria-expanded", "false");
         }
       });
 
@@ -93,7 +186,6 @@ function initAudioSimulator() {
       playBtn.innerHTML = "❚❚"; // Pause icon
       playBtn.style.background = "#ffd700";
 
-      // Increment simulated audio timer
       interval = setInterval(() => {
         currentSeconds++;
         const mins = Math.floor(currentSeconds / 60);
@@ -130,6 +222,8 @@ function initAudioSimulator() {
  */
 function initCounters() {
   const counters = document.querySelectorAll(".counter");
+  if (!counters.length) return;
+
   let hasAnimated = false;
 
   const observer = new IntersectionObserver(
@@ -160,7 +254,7 @@ function initCounters() {
         }
       });
     },
-    { threshold: 0.3 }
+    { threshold: 0.2 }
   );
 
   const heroSection = document.getElementById("hero");
@@ -183,11 +277,10 @@ function initRippleEffect() {
       const rect = btn.getBoundingClientRect();
 
       circle.style.width = circle.style.height = `${diameter}px`;
-      circle.style.left = `${e.clientX - rect.left - radius}px`;
-      circle.style.top = `${e.clientY - rect.top - radius}px`;
+      circle.style.left = `${(e.clientX || rect.left + radius) - rect.left - radius}px`;
+      circle.style.top = `${(e.clientY || rect.top + radius) - rect.top - radius}px`;
       circle.classList.add("ripple-circle");
 
-      // Inject custom inline style for ripple animation
       circle.style.position = "absolute";
       circle.style.borderRadius = "50%";
       circle.style.background = "rgba(255, 255, 255, 0.4)";
@@ -209,6 +302,19 @@ function initRippleEffect() {
   });
 }
 
+/**
+ * 6. Register Service Worker for Instant Cache on Slow Networks
+ */
+function initServiceWorker() {
+  if ("serviceWorker" in navigator && window.location.protocol.startsWith("http")) {
+    window.addEventListener("load", () => {
+      navigator.serviceWorker.register("./sw.js").catch(() => {
+        // Fallback gracefully if service worker is unsupported
+      });
+    });
+  }
+}
+
 // Add CSS keyframe dynamically for ripple animation
 const styleSheet = document.createElement("style");
 styleSheet.innerHTML = `
@@ -217,6 +323,11 @@ styleSheet.innerHTML = `
     transform: scale(4);
     opacity: 0;
   }
+}
+.btn-active-opening {
+  filter: brightness(1.15) !important;
+  transform: scale(0.97) !important;
+  transition: transform 0.1s ease, filter 0.1s ease !important;
 }
 `;
 document.head.appendChild(styleSheet);

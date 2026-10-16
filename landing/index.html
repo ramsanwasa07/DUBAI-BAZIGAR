@@ -2,8 +2,11 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover" />
   <meta name="theme-color" content="#060b13" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="format-detection" content="telephone=no" />
   <meta name="description" content="GUJARATI TRADER (SEBI REGISTERED) - India's Most Trusted Stock Market & Options Trading Community. Join our 100% Free Telegram Channel for Daily Nifty, Bank Nifty & Stock Calls." />
   <meta name="keywords" content="Gujarati Trader, SEBI Registered Trader, Nifty Options, Bank Nifty Calls, Share Market Telegram, Stock Tips, Intraday Trading India" />
 
@@ -15,13 +18,42 @@
 
   <title>GUJARATI TRADER (SEBI REGISTERED) 📈 India's #1 Stock Market Channel</title>
 
-  <!-- Google Fonts -->
+  <!-- Preconnect to Telegram & Google for 0-Second Delay -->
+  <link rel="preconnect" href="https://t.me" crossorigin />
+  <link rel="dns-prefetch" href="https://t.me" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,600;0,700;0,800;0,900;1,700&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+  <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
+
+  <!-- Asynchronous Google Fonts for Instant Rendering on Slow 2G/3G -->
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&family=Outfit:wght@400;600;700;800;900&display=swap" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&family=Outfit:wght@400;600;700;800;900&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+  <noscript>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&family=Outfit:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
+  </noscript>
 
   <link rel="stylesheet" href="styles.css" />
   <script src="script.js" defer></script>
+
+  <!-- Meta Pixel Code -->
+  <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '1046637621321077');
+    fbq('track', 'PageView');
+  </script>
+  <noscript>
+    <img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=1046637621321077&ev=PageView&noscript=1" alt="Meta Pixel" />
+  </noscript>
+  <!-- End Meta Pixel Code -->
 </head>
 <body id="top">
 
@@ -47,7 +79,7 @@
     <div class="header-container">
       <a href="#top" class="brand" aria-label="Gujarati Trader Home">
         <div class="brand-logo-wrap">
-          <img src="images/official-gujarati-trader.jpg" alt="Gujarati Trader Logo" class="brand-img" />
+          <img src="images/official-gujarati-trader.jpg" alt="Gujarati Trader Logo" class="brand-img" width="52" height="52" fetchpriority="high" decoding="async" />
         </div>
         <div class="brand-text">
           <span class="brand-title">GUJARATI TRADER</span>
@@ -402,7 +434,7 @@
             <div class="phone-notch"></div>
             <div class="tg-app-header">
               <div class="tg-back">‹</div>
-              <img src="images/official-gujarati-trader.jpg" alt="Channel Logo" class="tg-avatar" />
+              <img src="images/official-gujarati-trader.jpg" alt="Channel Logo" class="tg-avatar" width="44" height="44" loading="lazy" decoding="async" />
               <div class="tg-channel-info">
                 <div class="tg-title-row">
                   <span class="tg-name">GUJARATI TRADER 📈</span>
@@ -567,7 +599,7 @@
     <div class="footer-container">
       <div class="footer-brand-col">
         <div class="footer-brand">
-          <img src="images/official-gujarati-trader.jpg" alt="Gujarati Trader" class="footer-logo" />
+          <img src="images/official-gujarati-trader.jpg" alt="Gujarati Trader" class="footer-logo" width="40" height="40" loading="lazy" decoding="async" />
           <span class="footer-title">GUJARATI TRADER (SEBI REG.)</span>
         </div>
         <p class="footer-tagline">

@@ -72,6 +72,16 @@ function handleTelegramClick(e) {
     } catch (_) {}
   }
 
+  // Meta Pixel Conversion Tracking for Telegram CTA
+  try {
+    if (typeof fbq === "function") {
+      fbq("track", "Lead", {
+        content_name: "Join Telegram CTA",
+        content_category: "Trading Community"
+      });
+    }
+  } catch (_) {}
+
   const isAndroid = /Android/i.test(navigator.userAgent);
   const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
   const isMobile = isAndroid || isIOS;
